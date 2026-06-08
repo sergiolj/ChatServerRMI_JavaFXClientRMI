@@ -2,9 +2,13 @@
 
 <?import javafx.scene.layout.*?>
 
-<TilePane
-        fx:id="tilePane"
-        fx:controller="br.edu.ucsal.sergiolj.containers.controller.NumTileKeypadRegController"
-        style="-fx-background-color: #272727;"
-        xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
-/>
+<?import javafx.scene.control.Button?>
+<VBox fx:controller="br.edu.ucsal.sergiolj.containers.controller.NumTileKeypadRegController"
+      style="-fx-background-color: #272727;"
+      xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+    <TilePane fx:id="tilePane">
+    </TilePane>
+    <HBox alignment="CENTER">
+        <Button fx:id="btn_switch_to_exp"  mnemonicParsing="false" text="Switch"/>
+    </HBox>
+</VBox>

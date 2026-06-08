@@ -18,7 +18,6 @@ public class Navigation {
 
     private static void load(String fxml, String tittle, double width, double height){
         try{
-
             if(stage == null){
                 throw new IllegalStateException("Stage principal não foi configurado corretamente no SceneManager. Verifique" +
                         "o uso do SceneManager.setStage(Stage stage) no MainApp. ");
@@ -30,7 +29,10 @@ public class Navigation {
 
             Parent root = FXMLLoader.load(Objects.requireNonNull(Navigation.class.getResource(fxml)));
 
-            stage.setScene(new Scene(root, width, height));
+            Scene scene = new Scene(root, width, height);
+            stage.setScene(scene);
+            scene.getStylesheets().add(Objects.requireNonNull(
+                    Navigation.class.getResource("/styles/styles.css")).toExternalForm());
             stage.setTitle(tittle);
             stage.centerOnScreen();
             stage.sizeToScene();
@@ -46,7 +48,7 @@ public class Navigation {
         String fxml = "/view/num_keypad_compact.fxml";
         String tittle = "Numeric Keyboard";
         double width = 390;
-        double height = 390;
+        double height = 450;
         load(fxml,tittle,width,height);
     }
     public static void loadNumKeypadExp(){

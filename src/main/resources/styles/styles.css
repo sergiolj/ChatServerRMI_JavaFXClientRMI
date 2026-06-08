@@ -1,0 +1,20 @@
+/* Seleciona todos os componentes que tem essa classe */
+.numeric-key{
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333; /* Cor do texto */
+}
+
+.operation-key{
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-background-color: #ff6363;
+    -fx-text-fill: #ffffff;
+}
+
+/* Bônus: Efeito visual quando o botão é clicado */
+.numeric-card:pressed {
+    -fx-background-color: #d0d0d0;
+}

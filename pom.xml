@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>br.edu.ucsal.sergiolj</groupId>
-    <artifactId>javafxExemplos</artifactId>
+    <artifactId>javafxcontainers</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>javafxExemplos</name>
 

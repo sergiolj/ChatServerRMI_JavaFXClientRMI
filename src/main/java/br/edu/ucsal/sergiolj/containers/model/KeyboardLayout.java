@@ -6,7 +6,7 @@ public class KeyboardLayout {
 
     public static List<KeySet> getNumericKeypadLabelsExtended(){
         return List.of(
-                new KeySet("Num Lock", 0,0,1,1),
+                new KeySet("Num\nLock", 0,0,1,1),
                 new KeySet("/", 0,1,1,1),
                 new KeySet("*", 0,2,1,1),
                 new KeySet("-", 0,3,1,1),
