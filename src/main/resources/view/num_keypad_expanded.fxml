@@ -9,5 +9,6 @@
     <GridPane fx:id="gr_numExp">
     </GridPane>
     <HBox alignment="CENTER">
-         <Button fx:id="btn_switch_to_reg" mnemonicParsing="false" text="Switch" /></HBox>
+         <Button fx:id="btn_switch_to_reg" mnemonicParsing="false" text="Switch"/>
+    </HBox>
 </VBox>

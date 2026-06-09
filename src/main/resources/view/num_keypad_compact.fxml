@@ -6,9 +6,9 @@
 <VBox fx:controller="br.edu.ucsal.sergiolj.containers.controller.NumTileKeypadRegController"
       style="-fx-background-color: #272727;"
       xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
-    <TilePane fx:id="tilePane">
-    </TilePane>
+    <TilePane fx:id="tilePane"/>
     <HBox alignment="CENTER">
-        <Button fx:id="btn_switch_to_exp"  mnemonicParsing="false" text="Switch"/>
-    </HBox>
+        <Button fx:id="btn_switch_to_exp"  mnemonicParsing="false" text="Switch">
+    </Button>
+</HBox>
 </VBox>
