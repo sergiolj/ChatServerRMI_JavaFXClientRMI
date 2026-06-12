@@ -26,7 +26,9 @@ public class MainApp extends Application {
             Parent root = loader.load();
 
             Scene scene = new Scene(root);
-            stage.setFullScreen(true);
+            stage.setFullScreen(false); // usa toda a tela sem exibir barra de visualização da janela
+            stage.setMaximized(true); // maximiza a janela mantendo a barra de tarefas do so
+
 
             stage.setScene(scene);
             stage.setTitle("Cliente chat RMI");

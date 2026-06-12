@@ -3,6 +3,7 @@ package br.edu.ucsal.sergiolj.containers.chat.navigation;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -10,15 +11,15 @@ import java.net.URL;
 import java.util.Objects;
 
 public class Navigation {
-    private static Stage stage;
+    private static Stage primaryStage;
 
-    public static void setStage(Stage primaryStage){
-        stage = primaryStage;
+    public static void setPrimaryStage(Stage primaryStage){
+        Navigation.primaryStage = primaryStage;
     }
 
-    private static void load(String fxml, String tittle, double width, double height){
+    private static void loadInPrimaryWindow(String fxml, String tittle, double width, double height){
         try{
-            if(stage == null){
+            if(primaryStage == null){
                 throw new IllegalStateException("Stage principal não foi configurado corretamente no SceneManager. Verifique" +
                         "o uso do SceneManager.setStage(Stage stage) no MainApp. ");
             }
@@ -30,15 +31,15 @@ public class Navigation {
             Parent root = FXMLLoader.load(Objects.requireNonNull(Navigation.class.getResource(fxml)));
 
             Scene scene = new Scene(root, width, height);
-            stage.setScene(scene);
+            primaryStage.setScene(scene);
             scene.getStylesheets().add(Objects.requireNonNull(
                     Navigation.class.getResource("/styles/styles.css")).toExternalForm());
-            stage.setTitle(tittle);
-            stage.centerOnScreen();
-            stage.sizeToScene();
-            stage.setResizable(false);
+            primaryStage.setTitle(tittle);
+            primaryStage.centerOnScreen();
+            primaryStage.sizeToScene();
+            primaryStage.setResizable(false);
 
-            stage.show();
+            primaryStage.show();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -49,6 +50,35 @@ public class Navigation {
         String tittle = "Chat Java RMI";
         double width = 420;
         double height = 450;
-        load(fxml,tittle,width,height);
+        loadInPrimaryWindow(fxml,tittle,width,height);
+    }
+    public static void loadConfigView(){
+        String fxml = "/view/chat/chat_config.fxml";
+        String tittle = "Server Configuration";
+        double width = 400;
+        double height = 450;
+        loadInModalWindow(fxml,tittle,width,height);
+    }
+
+    private static void loadInModalWindow(String fxml, String tittle, double width, double height) {
+        try{
+            FXMLLoader loader = new FXMLLoader(Navigation.class.getResource(fxml));
+            Parent root = loader.load();
+
+            Scene scene = new Scene(root);
+            Stage stageModal = new Stage();
+            stageModal.setScene(scene);
+
+            stageModal.setTitle(tittle);
+            stageModal.initOwner(primaryStage);
+            stageModal.initModality(Modality.WINDOW_MODAL);
+
+            stageModal.setResizable(false);
+            stageModal.showAndWait();
+
+
+        }catch (Exception e){
+            System.out.println("Erro ao carregar janela modal: " + fxml);
+        }
     }
 }
