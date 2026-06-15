@@ -1,6 +1,4 @@
-package br.edu.ucsal.sergiolj.containers.chat;
-
-import atlantafx.base.theme.*;
+package br.edu.ucsal.sergiolj.containers.chat.gui;
 
 import javafx.application.Application;
 

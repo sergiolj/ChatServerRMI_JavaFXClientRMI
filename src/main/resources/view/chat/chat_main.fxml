@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 
 <BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="br.edu.ucsal.sergiolj.containers.chat.controller.MainViewController">
+            fx:controller="br.edu.ucsal.sergiolj.containers.chat.gui.controller.MainViewController">
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
             <Label alignment="TOP_LEFT" text="Janela de Batepapo" />
@@ -20,11 +20,12 @@
    <top>
       <MenuBar BorderPane.alignment="TOP_LEFT">
           <Menu mnemonicParsing="false" text="File">
-             <MenuItem mnemonicParsing="false" text="Config" onAction="#configServerSpecs" />
-             <MenuItem mnemonicParsing="false" text="Close" onAction="#exitApp" />
+              <MenuItem mnemonicParsing="false" text="Connect" onAction="#connectToServer"/>
+              <MenuItem mnemonicParsing="false" text="Config" onAction="#configServerSpecs" />
+              <MenuItem mnemonicParsing="false" text="Close" onAction="#exitApp" />
           </Menu>
          <Menu mnemonicParsing="false" text="Help">
-            <MenuItem fx:id="mi_about" mnemonicParsing="false" text="About"/>
+            <MenuItem mnemonicParsing="false" text="About" onAction="#about"/>
          </Menu>
       </MenuBar>
    </top>
