@@ -18,7 +18,9 @@ import javafx.stage.Stage;
 
 import java.util.List;
 
+
 public class ConfigController {
+
     @FXML
     private TextField txf_server_name, txf_server_port, txf_ip_address;
 
@@ -45,8 +47,6 @@ public class ConfigController {
                 txf_server_name.textProperty(),
                 txf_ip_address.textProperty(),
                 txf_server_port.textProperty());
-
-
 
         btn_save.disableProperty().bind(dataMatchesOriginal);
 
@@ -81,6 +81,10 @@ public class ConfigController {
         closeWindow(actionEvent);
     }
 
+    /**
+     * Fecha a janela corrente
+     * @param actionEvent
+     */
     @FXML
     private void closeWindow(ActionEvent actionEvent) {
         Node component = (Node) actionEvent.getSource();

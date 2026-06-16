@@ -1,11 +1,13 @@
 package br.edu.ucsal.sergiolj.containers.chat.gui.navigation;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
+import br.edu.ucsal.sergiolj.containers.chat.gui.controller.ConfigController;
+import br.edu.ucsal.sergiolj.containers.chat.gui.controller.ConnectController;
+import br.edu.ucsal.sergiolj.containers.chat.gui.controller.MainViewController;
+import javafx.application.Application;
+
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,15 +20,32 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
+import java.util.function.Consumer;
 
 public class Navigation {
     private static Stage primaryStage;
 
+    /**
+     * Define o stage principal criado pelo JavaFX na classe MainApp pelo método start
+     *
+     * @param primaryStage Stage da janela primária.
+     */
     public static void setPrimaryStage(Stage primaryStage) {
         Navigation.primaryStage = primaryStage;
     }
 
+    /**
+     * Cria uma janela primária da aplicação com os parâmetros fornecidos por métodos públicos da classe e definindo
+     * ainda um tema CSS para toda a aplicação usando AtlantaFX Themes definidos no pom.xml atlantafx-base.
+     * O tamanho utilizado pela janela está definido para a tela toda com opção de redimensionar pelo usuário.
+     *
+     * @param fxml Caminho do arquivo fxml com a estrutura de containers e outros objetos visuais.
+     * @param tittle Título da janela
+     * @param width Largura da janela
+     * @param height Altura da janela
+     */
     private static void loadInPrimaryWindow(String fxml, String tittle, double width, double height) {
+        Application.setUserAgentStylesheet(new atlantafx.base.theme.Dracula().getUserAgentStylesheet());
         try {
             if (primaryStage == null) {
                 throw new IllegalStateException("Stage principal não foi configurado corretamente no SceneManager. Verifique" +
@@ -39,14 +58,13 @@ public class Navigation {
 
             Parent root = FXMLLoader.load(Objects.requireNonNull(Navigation.class.getResource(fxml)));
 
-            Scene scene = new Scene(root, width, height);
+            Scene scene = new Scene(root, width, height); //cria um cenário de tamanho definido usando um objeto fxml
             primaryStage.setScene(scene);
-            scene.getStylesheets().add(Objects.requireNonNull(
-                    Navigation.class.getResource("/styles/styles.css")).toExternalForm());
             primaryStage.setTitle(tittle);
             primaryStage.centerOnScreen();
-            primaryStage.sizeToScene();
-            primaryStage.setResizable(false);
+            primaryStage.setResizable(true);
+            primaryStage.setFullScreen(false); // usa toda a tela sem exibir barra de visualização da janela
+            primaryStage.setMaximized(true); // maximiza a janela mantendo a barra de tarefas do so
 
             primaryStage.show();
         } catch (IOException e) {
@@ -54,10 +72,25 @@ public class Navigation {
         }
     }
 
-    private static void loadInModalWindow(String fxml, String tittle, double width, double height) {
+    /**
+     * Cria uma janela do tipo modal com os parâmetros fornecidos por métodos públicos da classe com tamanho definido
+     * sem a opção de redimensionamento.
+     *
+     *
+     * @param fxml Caminho do arquivo fxml com a estrutura de containers e outros objetos visuais.
+     * @param tittle Título da janela
+     * @param width Largura da janela
+     * @param height Altura da janela
+     */
+    private static <T> void loadInModalWindow(String fxml, String tittle, double width, double height, Consumer<T> setupController) {
         try {
             FXMLLoader loader = new FXMLLoader(Navigation.class.getResource(fxml));
             Parent root = loader.load();
+
+            T controller = loader.getController();
+            if(setupController !=null && controller != null){
+                setupController.accept(controller);
+            }
 
             Scene scene = new Scene(root);
             Stage stageModal = new Stage();
@@ -76,32 +109,45 @@ public class Navigation {
         }
     }
 
+    /**
+     * Define os parâmetros para a janela principal da aplicação.
+     */
     public static void loadMainView() {
-        String fxml = "/view/chat/main_view.fxml";
+        String fxml = "/view/chat/chat_main.fxml";
         String tittle = "Chat Java RMI";
-        double width = 420;
-        double height = 450;
+        double width = 800;
+        double height = 600;
         loadInPrimaryWindow(fxml, tittle, width, height);
     }
 
-    public static void loadConfigView() {
+    /**
+     * Define os parâmetros para a janela de configuração de servidores de chat usando uma janela do tipo modal.
+     *
+     */
+    public static void loadConfigView(MainViewController mainViewController) {
         String fxml = "/view/chat/chat_config.fxml";
         String tittle = "Server Configuration";
         double width = 400;
         double height = 450;
-        loadInModalWindow(fxml, tittle, width, height);
+        loadInModalWindow(fxml, tittle, width, height,null);
     }
 
-    public static void loadConnectView() {
+    /**
+     * Define os parâmetros para a janela de conexão.
+     * O controller da view deve ser fornecido, caso essa tenha que atualizar dados em outra janela, como no caso, a
+     * janela principal MainView.
+     */
+    public static void loadConnectView(MainViewController mainViewController) {
         String fxml = "/view/chat/chat_connect.fxml";
         String tittle = "Connect to Server";
         double width = 400;
         double height = 450;
-        loadInModalWindow(fxml, tittle, width, height);
+        loadInModalWindow (fxml, tittle, width, height, (ConnectController controller)->
+                controller.setMainController(mainViewController));
     }
     /**
-     * Essa foi uma janela About criada originalmente usando a classe Alert, mas para ter certa customização sobre o
-     * resultado, foi substituída pelo método usando Stage que possibilitou uma customização da centralização e
+     * Essa foi uma janela About criada originalmente usando a classe Alert, mas, para ter certa customização sobre o
+     * resultado, foi substituída pelo método usando Stage que possibilitou a customização da centralização e
      * das margens
      *
      */

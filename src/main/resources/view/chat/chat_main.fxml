@@ -26,6 +26,7 @@
       <MenuBar BorderPane.alignment="TOP_LEFT">
           <Menu mnemonicParsing="false" text="File">
               <MenuItem mnemonicParsing="false" onAction="#connectToServer" text="Connect" />
+              <MenuItem mnemonicParsing="false" onAction="#disconnectFromServer" text="Disconnect" />
               <MenuItem mnemonicParsing="false" onAction="#configServerSpecs" text="Config" />
               <MenuItem mnemonicParsing="false" onAction="#exitApp" text="Close" />
           </Menu>
@@ -35,6 +36,6 @@
       </MenuBar>
    </top>
    <left>
-      <ListView fx:id="listv_online_users" BorderPane.alignment="TOP_LEFT" />
+      <ListView maxWidth="200.0" fx:id="listv_online_users" BorderPane.alignment="TOP_LEFT" />
    </left>
 </BorderPane>

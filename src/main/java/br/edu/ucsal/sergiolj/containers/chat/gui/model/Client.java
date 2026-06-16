@@ -18,11 +18,12 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
     private final String userName;
     private Registry registry;
     private ChatServerInterface proxy;
-    private MainViewController controller;
+    private final MainViewController controller;
 
-    public Client(String userName) throws RemoteException {
+    public Client(String userName, MainViewController controller) throws RemoteException {
         super();
         this.userName = userName;
+        this.controller = controller;
         connectToServer();
         //this.proxy.processEntry(this, "./list");
     }
@@ -53,8 +54,9 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
 
     @Override
     public String userName() throws RemoteException {
-        return userName;
+        return this.userName;
     }
+
 
     @Override
     public void onlineUsersListChanged(List<String> onlineUsersList) throws RemoteException {
@@ -66,9 +68,12 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
     }
 
     @Override
+    public void disconnect(MainViewController controller) throws RemoteException {
+        proxy.disconnectUser(this);
+    }
+
+    @Override
     public String toString() {
-        return "Client{" +
-                "userName='" + userName + '\'' +
-                '}';
+        return userName;
     }
 }
