@@ -22,3 +22,10 @@
 .tgb_switch{
     -fx-background-color: #ff6363;
 }
+.label-titulo {
+    -fx-text-fill: #959595;
+    -fx-font-size: 10px;
+    -fx-font-style: italic;
+    -fx-font-weight: normal;
+    -fx-padding: 5px; /* Espaçamento interno */
+}

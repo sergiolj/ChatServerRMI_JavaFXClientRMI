@@ -46,6 +46,7 @@ public class Navigation {
      */
     private static void loadInPrimaryWindow(String fxml, String tittle, double width, double height) {
         Application.setUserAgentStylesheet(new atlantafx.base.theme.Dracula().getUserAgentStylesheet());
+
         try {
             if (primaryStage == null) {
                 throw new IllegalStateException("Stage principal não foi configurado corretamente no SceneManager. Verifique" +
@@ -59,6 +60,9 @@ public class Navigation {
             Parent root = FXMLLoader.load(Objects.requireNonNull(Navigation.class.getResource(fxml)));
 
             Scene scene = new Scene(root, width, height); //cria um cenário de tamanho definido usando um objeto fxml
+            String customCss = Objects.requireNonNull(Navigation.class.getResource("/styles/styles.css")).toExternalForm();
+            scene.getStylesheets().add(customCss);
+
             primaryStage.setScene(scene);
             primaryStage.setTitle(tittle);
             primaryStage.centerOnScreen();

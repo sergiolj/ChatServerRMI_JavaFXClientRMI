@@ -1,26 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane minHeight="600.0" minWidth="800.0" xmlns="http://javafx.com/javafx/17.0.12"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="br.edu.ucsal.sergiolj.containers.chat.gui.controller.MainViewController">
+<BorderPane minHeight="600.0" minWidth="800.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ucsal.sergiolj.containers.chat.gui.controller.MainViewController">
    <center>
-      <VBox style="-fx-background-color: #ffffff" BorderPane.alignment="CENTER">
-            <Label alignment="TOP_LEFT" text="Janela de Chat" />
-         <padding>
-            <Insets left="20.0" />
-         </padding>
-        </VBox>
+           <ListView fx:id="lst_messages" BorderPane.alignment="CENTER" />
    </center>
    <bottom>
-      <HBox minHeight="100.0" style="-fx-background-color: #979797" BorderPane.alignment="CENTER">
-            <Label alignment="TOP_LEFT" text="Janela de Respostas" />
-         <padding>
-            <Insets bottom="20.0" left="20.0" />
-         </padding></HBox>
+         <TextArea fx:id="txt_area_message" prefHeight="100.0" promptText="Digite sua mensagem..." style="-fx-background-color: #4a4a4a" BorderPane.alignment="CENTER" />
    </bottom>
    <top>
       <MenuBar BorderPane.alignment="TOP_LEFT">
@@ -36,6 +25,12 @@
       </MenuBar>
    </top>
    <left>
-      <ListView maxWidth="200.0" fx:id="listv_online_users" BorderPane.alignment="TOP_LEFT" />
+       <VBox BorderPane.alignment="TOP_LEFT">
+           <Label text="Online users" styleClass="label-titulo"/>
+           <ListView VBox.vgrow="ALWAYS" fx:id="lst_online_users" prefWidth="150.0" />
+         <cursor>
+            <Cursor fx:constant="CLOSED_HAND" />
+         </cursor>
+       </VBox>
    </left>
 </BorderPane>

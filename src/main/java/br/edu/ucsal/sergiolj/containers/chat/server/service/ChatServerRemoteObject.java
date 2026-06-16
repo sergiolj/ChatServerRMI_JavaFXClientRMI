@@ -23,6 +23,7 @@ public class ChatServerRemoteObject extends UnicastRemoteObject implements ChatS
         System.out.println("New user " + user.userName() + " registered.");
         notifyAll();
         onlineUsersChangedNotifyAll();
+        broadcast(user,  " entrou na sala.");
     }
 
     /**
@@ -61,10 +62,10 @@ public class ChatServerRemoteObject extends UnicastRemoteObject implements ChatS
     }
 
     public void broadcast(ClientInterface user, String msg) throws RemoteException {
-        System.out.println("Distribuindo mensagem de " + user.userName() + " para todos: " + msg);
+        System.out.println(user.userName() + " broadcast to all: " + msg);
         for (ClientInterface client : clients) {
             try{
-                client.broadcast("["+user.userName()+"] " + msg);
+                client.broadcast(user.userName() + ": " + msg);
             }catch (RemoteException e){
                 System.out.println(e.getMessage());
             }

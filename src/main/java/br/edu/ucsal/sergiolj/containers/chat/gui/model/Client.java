@@ -16,7 +16,6 @@ import java.util.List;
 public class Client extends UnicastRemoteObject implements ClientInterface {
 
     private final String userName;
-    private Registry registry;
     private ChatServerInterface proxy;
     private final MainViewController controller;
 
@@ -25,7 +24,6 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
         this.userName = userName;
         this.controller = controller;
         connectToServer();
-        //this.proxy.processEntry(this, "./list");
     }
 
     /**
@@ -34,9 +32,9 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
      */
     private void connectToServer() {
         try{
-            this.registry = LocateRegistry.getRegistry(Config.getIpAddress(),
+            Registry registry = LocateRegistry.getRegistry(Config.getIpAddress(),
                     Config.getServerPort());
-            this.proxy = (ChatServerInterface) this.registry.lookup(Config.getServerName());
+            this.proxy = (ChatServerInterface) registry.lookup(Config.getServerName());
             this.proxy.registerUser(this);
         } catch (RemoteException | NotBoundException e) {
             throw new RuntimeException(e);
@@ -47,16 +45,24 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
         return proxy;
     }
 
+
+    public void sendMessageCommand(String message) throws RemoteException {
+        proxy.processEntry(this, message);
+    }
+
     @Override
     public void broadcast(String message) throws RemoteException {
-        System.out.println(message);
+        Platform.runLater(()-> {
+            if(controller!=null) {
+                controller.publishMessage(message);
+            }
+        });
     }
 
     @Override
     public String userName() throws RemoteException {
         return this.userName;
     }
-
 
     @Override
     public void onlineUsersListChanged(List<String> onlineUsersList) throws RemoteException {

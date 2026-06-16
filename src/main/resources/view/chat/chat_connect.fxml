@@ -4,8 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="br.edu.ucsal.sergiolj.containers.chat.gui.controller.ConnectController">
+<VBox xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ucsal.sergiolj.containers.chat.gui.controller.ConnectController">
     <GridPane hgap="10.0" vgap="10.0">
         <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
@@ -28,6 +27,6 @@
             <Insets bottom="20.0" />
         </padding>
         <Button mnemonicParsing="false" onAction="#closeWindow" prefWidth="100.0" text="Cancel" />
-        <Button mnemonicParsing="false" onAction="#connectToServer" prefWidth="100.0" text="Connect" />
+        <Button fx:id="btn_connect" mnemonicParsing="false" onAction="#connectToServer" prefWidth="100.0" text="Connect" />
     </HBox>
 </VBox>
