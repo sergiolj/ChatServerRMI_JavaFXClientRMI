@@ -25,47 +25,32 @@ import java.util.Objects;
  * @version 1.0
  */
 public class AlertWindows {
-    private static Window owner;
+
+    private static void showAlert(Alert.AlertType type, String tittle, String message, ActionEvent event){
+        Alert alert = new Alert(type);
+        alert.setTitle(tittle);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        if(event != null){
+            Node node = (Node) event.getSource();
+             Window owner = node.getScene().getWindow();
+            if (owner != null) {
+                alert.initOwner(owner);
+            }
+        }
+        alert.showAndWait();
+    }
 
     public static void showWarning(String title, String message, ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        defineWindowOwner(event);
-        if (owner != null) {
-            alert.initOwner(owner);
-        }
-        alert.showAndWait();
+       showAlert(Alert.AlertType.WARNING, title,message,event);
     }
 
-    private static void defineWindowOwner(ActionEvent event) {
-        Node node = (Node) event.getSource();
-        owner = node.getScene().getWindow();
+    public static void showError(String tittle, String message, ActionEvent event) {
+        showAlert(Alert.AlertType.ERROR, tittle,message,event);
     }
 
-    public static void showError(String title, String message, ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        defineWindowOwner(event);
-        if (owner != null) {
-            alert.initOwner(owner);
-        }
-        alert.showAndWait();
-    }
-
-    public static void showConfirmation(String title, String message,ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        defineWindowOwner(event);
-        if (owner != null) {
-            alert.initOwner(owner);
-        }
-        alert.showAndWait();
+    public static void showConfirmation(String tittle, String message,ActionEvent event) {
+        showAlert(Alert.AlertType.CONFIRMATION,tittle,message,event);
     }
 
     private static void applyCustomCSS(Alert alert) {
