@@ -2,7 +2,7 @@ package br.edu.ucsal.sergiolj.containers.chat.server.service;
 
 import br.edu.ucsal.sergiolj.containers.chat.shared.ChatServerInterface;
 import br.edu.ucsal.sergiolj.containers.chat.shared.ClientInterface;
-import br.edu.ucsal.sergiolj.containers.chat.shared.Config;
+import br.edu.ucsal.sergiolj.containers.chat.server.Config;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;

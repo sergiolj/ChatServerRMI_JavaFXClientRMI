@@ -2,9 +2,12 @@ package br.edu.ucsal.sergiolj.containers.chat.gui.controller;
 
 import br.edu.ucsal.sergiolj.containers.chat.gui.navigation.Navigation;
 import br.edu.ucsal.sergiolj.containers.chat.shared.ClientInterface;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -14,14 +17,21 @@ import java.util.List;
 
 public class MainViewController {
     @FXML
+    private MenuItem mi_disconnect;
+    @FXML
     private TextArea txt_area_message;
-    private ClientInterface currentUser = null;
-
+    private ObjectProperty<ClientInterface> currentUser =new SimpleObjectProperty<>(null);;
     @FXML
     private ListView<String> lst_online_users, lst_messages;
 
+
     @FXML
     public void initialize() {
+        //Se o currentUser for nulo o MenuItem fica desabilitado, para isso foi necessário mudar a classe para
+        //ObjectProperty<ClientInterface> ao invés de apenas ClientInterface.
+        mi_disconnect.disableProperty().bind(currentUser.isNull());
+
+        txt_area_message.setDisable(true);
         txt_area_message.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 if (event.isShiftDown()) {
@@ -30,7 +40,7 @@ public class MainViewController {
                 } else {
                     event.consume();
                     try {
-                        currentUser.sendMessageCommand(txt_area_message.getText().trim());
+                        currentUser.get().sendMessageCommand(txt_area_message.getText().trim());
                         txt_area_message.clear();
                     } catch (RemoteException e) {
                         throw new RuntimeException(e);
@@ -38,8 +48,8 @@ public class MainViewController {
                 }
             }
         });
-    }
 
+    }
 
     @FXML
     private void configServerSpecs(ActionEvent actionEvent) {
@@ -82,21 +92,32 @@ public class MainViewController {
     public void about(ActionEvent actionEvent) {
         Navigation.about();
     }
-
+    /*Esse método serve para exibir o ClienteInterface que está contigo dentro no ObjectProperty
+    */
     public ClientInterface getCurrentUser() {
-        return currentUser;
+        return currentUser.get();
     }
 
+    /**
+     * Define o usuário no sistema e habilita a TextArea para envio de mensagens e comandos.
+     * Esse método é utilizado pelo ConnectControler.
+     *
+     * @param currentUser
+     */
     public void setCurrentUser(ClientInterface currentUser) {
-        this.currentUser = currentUser;
+        this.currentUser.set(currentUser);
+        if(currentUser != null){
+            txt_area_message.setDisable(false);
+        }
     }
 
     public void disconnectFromServer() throws RemoteException {
         try{
-            if(currentUser != null){
-                currentUser.disconnect(this);
-                currentUser = null;
+            if(getCurrentUser() != null){
+                getCurrentUser().disconnect(this);
+                setCurrentUser(null);
                 txt_area_message.clear();
+                txt_area_message.setDisable(true);
                 lst_messages.getItems().clear();
             }
             /* Quando o usuário se desliga do servidor ele não faz mais parte da lista de broadcast, por isso, o próprio

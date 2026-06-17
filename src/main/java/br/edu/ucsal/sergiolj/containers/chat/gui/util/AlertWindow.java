@@ -24,7 +24,7 @@ import java.util.Objects;
  *
  * @version 1.0
  */
-public class AlertWindows {
+public class AlertWindow {
 
     private static void showAlert(Alert.AlertType type, String tittle, String message, ActionEvent event){
         Alert alert = new Alert(type);
@@ -54,7 +54,7 @@ public class AlertWindows {
     }
 
     private static void applyCustomCSS(Alert alert) {
-        String css = Objects.requireNonNull(AlertWindows.class.getResource("/styles/custom_atlanta_fx.css")).toExternalForm();
+        String css = Objects.requireNonNull(AlertWindow.class.getResource("/styles/custom_atlanta_fx.css")).toExternalForm();
         alert.getDialogPane().getStylesheets().add(css);
     }
 

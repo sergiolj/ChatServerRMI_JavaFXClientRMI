@@ -15,7 +15,7 @@
       <MenuBar BorderPane.alignment="TOP_LEFT">
           <Menu mnemonicParsing="false" text="File">
               <MenuItem mnemonicParsing="false" onAction="#connectToServer" text="Connect" />
-              <MenuItem mnemonicParsing="false" onAction="#disconnectFromServer" text="Disconnect" />
+              <MenuItem fx:id="mi_disconnect" mnemonicParsing="false" onAction="#disconnectFromServer" text="Disconnect" />
               <MenuItem mnemonicParsing="false" onAction="#configServerSpecs" text="Config" />
               <MenuItem mnemonicParsing="false" onAction="#exitApp" text="Close" />
           </Menu>

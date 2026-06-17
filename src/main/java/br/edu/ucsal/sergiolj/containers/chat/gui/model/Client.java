@@ -1,9 +1,9 @@
 package br.edu.ucsal.sergiolj.containers.chat.gui.model;
 
 import br.edu.ucsal.sergiolj.containers.chat.gui.controller.MainViewController;
+import br.edu.ucsal.sergiolj.containers.chat.gui.util.ServerSpecs;
 import br.edu.ucsal.sergiolj.containers.chat.shared.ChatServerInterface;
 import br.edu.ucsal.sergiolj.containers.chat.shared.ClientInterface;
-import br.edu.ucsal.sergiolj.containers.chat.shared.Config;
 import javafx.application.Platform;
 
 import java.rmi.NotBoundException;
@@ -19,30 +19,22 @@ public class Client extends UnicastRemoteObject implements ClientInterface {
     private ChatServerInterface proxy;
     private final MainViewController controller;
 
-    public Client(String userName, MainViewController controller) throws RemoteException {
+    public Client(String userName, MainViewController controller, ServerSpecs server) throws RemoteException, NotBoundException {
         super();
         this.userName = userName;
         this.controller = controller;
-        connectToServer();
+        connectToServer(server);
     }
 
     /**
-     * Executa a conexão com o servidor com base nas informações estáticas do Config.class
-     * Falta implementar a lista de ChatServers que aparece no ChoiceBox utilizado no ConnectController
+     * Executa a conexão com o servidor com base nas configurações do servidor injetadas.
+     *
      */
-    private void connectToServer() {
-        try{
-            Registry registry = LocateRegistry.getRegistry(Config.getIpAddress(),
-                    Config.getServerPort());
-            this.proxy = (ChatServerInterface) registry.lookup(Config.getServerName());
+    private void connectToServer(ServerSpecs server) throws RemoteException, NotBoundException {
+            Registry registry = LocateRegistry.getRegistry(server.getIP(),
+                    server.getPort());
+            this.proxy = (ChatServerInterface) registry.lookup(server.getName());
             this.proxy.registerUser(this);
-        } catch (RemoteException | NotBoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public ChatServerInterface getProxy() {
-        return proxy;
     }
 
 

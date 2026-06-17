@@ -1,2 +1,2 @@
 RMI_ChatServer,127.0.0.1,1099;
-Chat_Server,10.0.8.80,1099;
+Chat_Server_Aeee,10.0.8.81,1099;

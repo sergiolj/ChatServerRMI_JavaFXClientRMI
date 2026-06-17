@@ -19,4 +19,6 @@ module br.edu.ucsal.sergiolj.containers {
     opens br.edu.ucsal.sergiolj.containers.chat.gui to javafx.fxml;
     exports br.edu.ucsal.sergiolj.containers.chat.shared;
     opens br.edu.ucsal.sergiolj.containers.chat.shared to javafx.fxml;
+    exports br.edu.ucsal.sergiolj.containers.chat.server;
+    opens br.edu.ucsal.sergiolj.containers.chat.server to javafx.fxml;
 }

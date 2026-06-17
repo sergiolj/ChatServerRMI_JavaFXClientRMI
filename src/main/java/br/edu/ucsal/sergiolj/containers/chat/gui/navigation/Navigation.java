@@ -68,7 +68,7 @@ public class Navigation {
             primaryStage.centerOnScreen();
             primaryStage.setResizable(true);
             primaryStage.setFullScreen(false); // usa toda a tela sem exibir barra de visualização da janela
-            primaryStage.setMaximized(true); // maximiza a janela mantendo a barra de tarefas do so
+            primaryStage.setMaximized(false); // maximiza a janela mantendo a barra de tarefas do so
 
             primaryStage.show();
         } catch (IOException e) {

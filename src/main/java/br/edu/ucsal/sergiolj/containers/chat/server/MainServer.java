@@ -1,7 +1,6 @@
 package br.edu.ucsal.sergiolj.containers.chat.server;
 
 import br.edu.ucsal.sergiolj.containers.chat.server.service.ChatServerRemoteObject;
-import br.edu.ucsal.sergiolj.containers.chat.shared.Config;
 
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;

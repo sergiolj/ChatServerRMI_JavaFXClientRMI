@@ -12,6 +12,5 @@ public interface ClientInterface extends Remote {
     String userName() throws RemoteException;
     void onlineUsersListChanged(List<String> onlineUsersList) throws RemoteException;
     void disconnect(MainViewController mainController) throws RemoteException;
-
     void sendMessageCommand(String trim) throws RemoteException;
 }
