@@ -1,0 +1,2 @@
+RMI_ChatServer,127.0.0.1,1099;
+RMI_ChatServer,127.0.0.1,1095;

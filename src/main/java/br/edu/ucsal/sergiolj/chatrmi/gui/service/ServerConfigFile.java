@@ -14,10 +14,10 @@ import java.util.List;
 
 public class ServerConfigFile {
 
-    public static List<ServerSpecs> readFromFile(String path) throws IOException {
+    public static List<ServerSpecs> readFromFile(Path path) throws IOException {
         List<ServerSpecs> serversList = new ArrayList<>();
         try {
-            String fileContent = Files.readString(Path.of(path));
+            String fileContent = Files.readString(Path.of(path.toUri()));
             String[] serverData = fileContent.split(";");
 
             for (String currentServer : serverData) {
@@ -45,7 +45,7 @@ public class ServerConfigFile {
                     .append(server.getIP()).append(",")
                     .append(server.getPort()).append(";\n");
         }
-        File file = new File(ChatServers.filePath);
+        File file = new File(ChatServers.filePath.toUri());
         try{
             Files.writeString(
                     file.toPath(),

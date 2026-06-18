@@ -3,14 +3,19 @@ package br.edu.ucsal.sergiolj.chatrmi.gui.util;
 import br.edu.ucsal.sergiolj.chatrmi.gui.service.ServerConfigFile;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ChatServers {
     private static ChatServers instance;
     private final List<ServerSpecs> serversList = new ArrayList<>();
-    public static final String filePath =
-            "C:\\Users\\sljunior\\IdeaProjects\\ChatServerRMI_JavaFXClientRMI\\src\\main\\resources\\config\\servers.txt";
+    public static final Path filePath = Paths.get("servers.txt");
+
 
     public static ChatServers getInstance() {
         if (instance == null) {
@@ -29,6 +34,14 @@ public class ChatServers {
 
     private void loadServersList() {
         try {
+            if(!Files.exists(filePath)){
+                System.out.println("Arquivo de configuração não encontrado. Criando 'server.txt' padrão...");
+                String serverDefaultList = "RMI_ChatServer,127.0.0.1,1099;";
+                Files.writeString(filePath,
+                        serverDefaultList,
+                        StandardCharsets.UTF_8,
+                        StandardOpenOption.CREATE);
+            }
             List<ServerSpecs> loadedServers = ServerConfigFile.readFromFile(filePath);
             serversList.clear();
             serversList.addAll(loadedServers);
@@ -40,9 +53,4 @@ public class ChatServers {
             throw new RuntimeException(e.getMessage());
         }
     }
-
-
-    public void updateServer(){
-    }
-
-    }
+}
