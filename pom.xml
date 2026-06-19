@@ -93,10 +93,10 @@
                         <artifactId>javafx-maven-plugin</artifactId>
                         <version>0.0.8</version>
                         <configuration>
-                            <mainClass>br.edu.ucsal.sergiolj.chatrmi/br.edu.ucsal.sergiolj.chatrmi.server.MainServer</mainClass>
+                            <mainClass>br.edu.ucsal.sergiolj.chatrmi/br.edu.ucsal.sergiolj.chatrmi.server.ChatServer</mainClass>
                             <launcher>ChatServerRMI</launcher>
-                            <jlinkImageName>app-chatrmi-server</jlinkImageName>
-                            <jlinkZipName>app-chatrmi-server-zip</jlinkZipName>
+                            <jlinkImageName>chat-server</jlinkImageName>
+                            <jlinkZipName>chat-server-zip</jlinkZipName>
                             <noManPages>true</noManPages>
                             <stripDebug>true</stripDebug>
                             <noHeaderFiles>true</noHeaderFiles>
@@ -114,10 +114,10 @@
                          <artifactId>javafx-maven-plugin</artifactId>
                          <version>0.0.8</version>
                          <configuration>
-                             <mainClass>br.edu.ucsal.sergiolj.chatrmi/br.edu.ucsal.sergiolj.chatrmi.server.AdminConsole</mainClass>
-                             <launcher>ServerConsole</launcher>
-                             <jlinkImageName>chatrmi-console</jlinkImageName>
-                             <jlinkZipName>chatrmi-console-zip</jlinkZipName>
+                             <mainClass>br.edu.ucsal.sergiolj.chatrmi/br.edu.ucsal.sergiolj.chatrmi.server.ChatRMI</mainClass>
+                             <launcher>ChatRMI</launcher>
+                             <jlinkImageName>chatrmi</jlinkImageName>
+                             <jlinkZipName>chatrmi.zip</jlinkZipName>
                              <noManPages>true</noManPages>
                              <stripDebug>true</stripDebug>
                              <noHeaderFiles>true</noHeaderFiles>
